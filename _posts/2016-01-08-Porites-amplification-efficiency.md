@@ -11,4 +11,4 @@ Genomic DNA extracted from *Porites* corals often contains PCR inhibitors, which
 **Each reaction**: 6.25 µL SYBR Green MasterMix, 0.5 µL forward primer @ 10 µM, 0.5 µL reverse primer @ 10 µM, 4.25 µL water, 1 µL DNA template
 **Template**: Tenfold dilution series of each sample, five levels
 
-![Standard curves]({{ site.cdn_path }}/assets/20160108_Pcomp_stdcurves.jpg)
+![Standard curves]({{ site.baseurl }}/assets/20160108_Pcomp_stdcurves.jpg)
