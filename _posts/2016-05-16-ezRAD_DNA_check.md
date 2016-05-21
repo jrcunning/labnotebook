@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Sample selection for ezRAD: gDNA gels
+title: ezRAD_DNA_check
 date: 2016-05-16
 categories:
 ---
