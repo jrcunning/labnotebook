@@ -11,7 +11,7 @@ email: ross.cunning@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
   This is my open lab notebook describing my research activities, ideas, 
   successes, failures, and goals.
-baseurl: "/labnotebook" # the subpath of your site, e.g. /blog
+baseurl: "/labnotebook/" # the subpath of your site, e.g. /blog
 url: "http://jrcunning.github.io" # the base hostname & protocol for your site
 twitter_username: jrcunning
 github_username:  jrcunning
