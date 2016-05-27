@@ -13,8 +13,8 @@ local({
   a = commandArgs(TRUE)
   d = gsub('^_|[.][a-zA-Z]+$', '', a[1])
   knitr::opts_chunk$set(
-    fig.path   = sprintf('figure/', d),
-    cache.path = sprintf('cache/', d)
+    fig.path   = sprintf('figure/%s/', d),
+    cache.path = sprintf('cache/%s/', d)
   )
   # set where you want to host the figures (I store them in my Dropbox Public
   # folder, and you might prefer putting them in GIT)
