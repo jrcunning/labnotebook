@@ -1,0 +1,19 @@
+---
+layout: post
+title:  Pooling samples for ezRAD libraries
+date: `r Sys.time()`
+---
+
+I will pool individual samples from each of the three groups (Bleached clade C, Not bleached clade C, Not bleached clade D) for ezRAD library preparation. 
+
+Each group has 14 samples, and the library should have a total of 1300ng DNA. Therefore, we need `r 1300/14` ng of each sample. Using the DNA concentrations from the AccuClear assay, calculate the volume of `r 1300/14` ng for each sample:
+
+```{r}
+samples <- read.csv("samples.csv")
+dnaconc <- read.csv("dnaconc.csv")
+data <- merge(samples, dnaconc, by="colony")
+data$needvol <- (1300/14) / data$ng.uL
+data <- with(data, data[order(group, sample.date, colony), ])
+knitr::kable(data, row.names=F)
+```
+
