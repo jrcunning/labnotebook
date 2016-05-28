@@ -4,3 +4,5 @@ _site
 Gemfile
 Gemfile.lock
 .Rproj.user
+.RData
+.Rhistory
