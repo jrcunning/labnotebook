@@ -1,9 +1,10 @@
 ---
 layout: post
 title:  Pooling samples for ezRAD libraries
-date: 2016-05-27 15:20:06
+date: 2016-05-27 16:14:58
 ---
 
+###Pooling samples
 I will pool individual samples from each of the three groups (Bleached clade C, Not bleached clade C, Not bleached clade D) for ezRAD library preparation. 
 
 Each group has 14 samples, and the library should have a total of 1300ng DNA. Therefore, we need 92.8571429 ng of each sample. Using the DNA concentrations from the AccuClear assay, calculate the volume of 92.8571429 ng for each sample:
@@ -64,4 +65,40 @@ knitr::kable(data, row.names=F)
 |     78|Not bleached - clade D |2014-12-17  | 38.870929|  2.388858|
 |    112|Not bleached - clade D |2014-12-17  | 26.649309|  3.484411|
 |     26|Not bleached - clade D |2015-05-06  | 19.619133|  4.732989|
+  
+***  
 
+###Total volume of pooled DNA for each group:
+
+{% highlight r %}
+groupvols <- with(data, aggregate(data.frame(vol_DNA=needvol), by=list(group=group), FUN=sum))
+knitr::kable(groupvols)
+{% endhighlight %}
+
+
+
+|group                  |  vol_DNA|
+|:----------------------|--------:|
+|Bleached - clade C     | 77.47009|
+|Not bleached - clade C | 66.99981|
+|Not bleached - clade D | 68.32840|
+ 
+***
+
+###Ampure bead cleanup
+A bead cleanup will be used to reduce the total volume of the pooled DNA and to remove any contaminants prior to the enzyme digest. Beads will be added to pooled DNA at a ratio of 0.6 beads : 1.0 DNA (vol : vol). 
+
+
+{% highlight r %}
+groupvols$vol_Beads <- groupvols$vol_DNA * 0.6
+groupvols$vol_Total <- groupvols$vol_DNA + groupvols$vol_Beads
+knitr::kable(groupvols)
+{% endhighlight %}
+
+
+
+|group                  |  vol_DNA| vol_Beads| vol_Total|
+|:----------------------|--------:|---------:|---------:|
+|Bleached - clade C     | 77.47009|  46.48206|  123.9521|
+|Not bleached - clade C | 66.99981|  40.19989|  107.1997|
+|Not bleached - clade D | 68.32840|  40.99704|  109.3254|
