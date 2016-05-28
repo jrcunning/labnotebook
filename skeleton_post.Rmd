@@ -1,0 +1,11 @@
+---
+layout: post
+title:  "Sketelton Post"
+date: `r Sys.time()`
+---
+
+Your markdown here!
+
+```{r}
+plot(1:10)
+```
