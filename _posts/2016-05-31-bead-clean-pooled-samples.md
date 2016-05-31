@@ -1,0 +1,69 @@
+---
+layout: post
+title:  Bead clean pooled samples
+date:  2016-05-31 08:05:28
+---
+
+###Ampure bead cleanup
+A bead cleanup will be used to reduce the total volume of the pooled DNA and to remove any contaminants prior to the restriction enzyme digest. Beads will be added to pooled DNA at a ratio of 0.6 beads : 1.0 DNA (vol : vol). 
+
+
+{% highlight r %}
+# Read in data from sample pooling
+knitr::knit("../2016-05-27-pooling-samples-for-ezrad-libraries/2016-05-27-pooling-samples-for-ezrad-libraries.Rmd", quiet=T)
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## [1] "2016-05-27-pooling-samples-for-ezrad-libraries.md"
+{% endhighlight %}
+
+
+
+{% highlight r %}
+# Add extra volume to sample 20 in ND pool to account for error during pooling
+data[data$colony==20, "needvol"] <- data[data$colony==20, "needvol"] + 4.571047
+
+# Calculate bead volumes
+groupvols <- with(data, aggregate(data.frame(vol_DNA=needvol), by=list(group=group), FUN=sum))
+groupvols$vol_Beads <- groupvols$vol_DNA * 0.6
+groupvols$vol_Total <- groupvols$vol_DNA + groupvols$vol_Beads
+knitr::kable(groupvols)
+{% endhighlight %}
+
+
+
+|group                  |  vol_DNA| vol_Beads| vol_Total|
+|:----------------------|--------:|---------:|---------:|
+|Bleached - clade C     | 154.9402|  92.96411|  247.9043|
+|Not bleached - clade C | 133.9996|  80.39978|  214.3994|
+|Not bleached - clade D | 136.6568|  81.99409|  218.6509|
+
+***
+
+### Steps:
+1. Mix Ampure beads well, vortex for 1 min.
+2. Add appropriate volumes of DNA and beads to 96-well plate (see table above)
+3. Incubate at room temperature for 5 min.
+4. Place plate on magnetic stand for 5 min.
+5. Remove supernatant into waste container, leaving ~5 µL behind
+6. Add 200 µL of freshly made 80% ethanol
+7. Incubate at room temperature for 30 sec then pipet supernatant into waste container
+8. Repeat steps 6 and 7 (total of 2 ethanol washes)
+9. Remove any remaining ethanol in tubes using a pipet, and let air dry for 5 min. Do not let beads dry for longer than 10 min.
+10. Resuspend DNA in 28 µL of HyClone water, pipet up and down several times
+11. Incubate at room temperature for 5 min.
+12. Place plate on magnetic stand for 5 min.
+13. Transfer 26 µL supernatant to new tube, leaving beads behind in ~2 µL volume.
+
+***
+
+### Resulting cleaned DNA concentrations
+(measured by NanoDrop)
+
+pool | ng/µL | 260:280 | 260:230 | total DNA in 25 µL (ng) | recovery (%)
+---- | ----- | ------- | ------- | ----------------------- | ------------
+BC   | 37.3  | 1.97    | 1.72    | 932.5           | 35.9
+NC   | 32.7  | 2.08    | 1.65    | 817.5           | 31.4
+ND   | 37.2  | 1.78    | 1.42    | 930           | 35.8
