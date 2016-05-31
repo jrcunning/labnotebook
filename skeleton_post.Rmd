@@ -7,5 +7,5 @@ date: `r Sys.time()`
 Your markdown here!
 
 ```{r}
-plot(1:10)
+# Your R code here!
 ```
