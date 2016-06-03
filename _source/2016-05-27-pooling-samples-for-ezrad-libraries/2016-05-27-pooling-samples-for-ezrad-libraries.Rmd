@@ -4,7 +4,6 @@ title:  Pooling samples for ezRAD libraries
 date: 2016-05-27
 ---
 
-###Pooling samples
 I will pool individual samples from each of the three groups (Bleached clade C ("BC"), Not bleached clade C ("NC"), Not bleached clade D ("ND")) for ezRAD library preparation. 
 
 Each group has 14 samples, and the library should have a total of 1300ng DNA going into the digest. Conservatively assuming 50% loss during a bead clean, I will create pools of 2600 ng DNA. Therefore, we need `r 2600/14` ng of each sample. Using the DNA concentrations from the AccuClear assay, the volumes of `r 2600/14` ng for each sample are: 
@@ -21,6 +20,7 @@ knitr::kable(data, row.names=F)
 ***  
 
 ###Total volume of pooled DNA for each group:
+
 ```{r}
 groupvols <- with(data, aggregate(data.frame(vol_DNA=needvol), by=list(group=group), FUN=sum))
 knitr::kable(groupvols)
