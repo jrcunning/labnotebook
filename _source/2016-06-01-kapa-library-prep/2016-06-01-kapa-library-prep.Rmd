@@ -4,7 +4,7 @@ title:  KAPA library prep
 date:  2016-06-01
 ---
 
-Preparing ezRAD libraries using the KAPA Biosystems Hyper Prep kit. 
+Preparing ezRAD libraries using the KAPA Biosystems Hyper Prep kit. The full protocol from KAPA Biosystems can be found [here](https://www.kapabiosystems.com/document/kapa-hyper-prep-kit-tds/?dl=1).
 
 ### End repair and A-tailing
 Combine the following for each sample in PCR tubes:
