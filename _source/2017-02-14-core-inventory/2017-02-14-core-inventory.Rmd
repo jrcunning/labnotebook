@@ -1,0 +1,13 @@
+---
+layout: post
+title:  Core inventory
+date:  2017-02-14 15:48:56
+---
+
+Inventorying coral cores that have been held long term in experimental tanks in the Baker Lab at RSMAS.
+
+```{r}
+cores <- read.csv("cores_draft.csv")
+cores$dup <- ifelse(duplicated(cores), T, F)
+knitr::kable(cores)
+```
