@@ -1,0 +1,14 @@
+---
+layout: post
+title:  Sampling intact colonies in wetlab
+date:  2017-02-15 09:31:09
+---
+
+These colonies have been collected from various locations (Emerald, Port Miami, Palm Beach Co., ?) and have been held in Baker Lab tanks. Goal here is to sample each colony in three different places, extract DNA, and run clades A-D qPCR on each sample to (1) see which symbionts are present in which colonies and (2) troubleshoot any potential issues in DNA extraction/qPCR methods.
+
+Samples were collected from each colony using a new razor blade to extract tissue from ~1 polyp (for *O. faveolata* and *S. siderea*, and the ridge of a polyp in *M. cavernosa*). Tissue samples were placed in tubes containing 500 µL 1% SDS in DNAB, and heated to 65°C for 90 min.
+
+```{r}
+df <- read.csv("2017-02-15-sampling.csv")
+knitr::kable(df)
+```
