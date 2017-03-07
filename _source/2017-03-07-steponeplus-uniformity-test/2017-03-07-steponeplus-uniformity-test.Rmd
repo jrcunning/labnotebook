@@ -1,0 +1,95 @@
+---
+layout: post
+title:  StepOnePlus Uniformity Test
+date:  2017-03-07 13:26:34
+---
+
+# Rationale
+Testing the Baker Lab StepOnePlus machine for any potential variation among wells due to machine error/variability. Machine was calibrated (spatial, background, and dye) on 03/06/2017. To test for any variability, I will run a plate with 96 technical replicates, i.e., the same reaction in each well, that includes amplification of both C and D actin loci.
+
+# Methods
+* Prepare DNA template: (210 µL total)
+  + 10 µL Mc16-47t0 (Rivah's sample, contains clade C)
+  + 10 µL 942-1 (see previous entry, contains clade D)
+  + 180 µL H2O
+
+* Prepare qPCR MasterMix:
+  + Each reaction: 5 µL GTMM; 0.5 µL each of CFor, CRev, CProbe, DFor, DRev, DProbe; (no water)
+  + MasterMix (n=98): 490 µL GTMM; 49 µL each oligo
+
+* Add 8 µL MasterMix to each well
+* Add 2 µL mixed C+D DNA template to each well
+
+# Results
+
+### Raw data files:  
+
+[eds]("20170307_RC_UniformityTest.eds")
+[txt]("20170307_RC_UniformityTest_data.txt")
+
+```{r import_data}
+library(reshape2)
+df <- read.delim("20170307_RC_UniformityTest_data.txt", skip=8)
+df <- dcast(df, formula=Well~Target.Name, value.var="Cт")
+```
+
+### Visualize plates: 
+```{r visualize_plates, fig.height=4, fig.width=6}
+library(platetools)
+raw_map(data=df$C, well=df$Well, plate=96)
+raw_map(data=df$D, well=df$Well, plate=96)
+```
+
+### Run some stats:
+```{r platestats}
+library(effects)
+library(lsmeans)
+
+df$row <- substr(df$Well, 1,1)
+df$col <- substr(df$Well, 2,3)
+df$corner <- factor(ifelse(df$Well %in% c("A1", "A12", "H1", "H12"), "corner", "not_corner"))
+df$border <- factor(ifelse(df$row %in% c("A", "H") | df$col %in% c(1, 12), "border", "not_border"))
+str(df)
+
+# Are corners different?
+mod <- lm(C ~ corner, data=df)
+anova(mod)  # YES
+plot(effect("corner", mod), main="Corner effect - C assay")
+# Pairwise comparison
+pairs(lsmeans(mod, specs="corner"))
+
+mod <- lm(D ~ corner, data=df)
+anova(mod)  # YES
+plot(effect("corner", mod), main="Corner effect - D assay")
+# Pairwise comparison
+pairs(lsmeans(mod, specs="corner"))
+
+# Are borders different?
+mod <- lm(C ~ border, data=df)
+anova(mod)  # YES
+plot(effect("border", mod), main="Border effect - C assay")
+# Pairwise comparison
+pairs(lsmeans(mod, specs="border"))
+
+mod <- lm(D ~ border, data=df)
+anova(mod)  # YES
+plot(effect("border", mod), main="Border effect - D assay")
+# Pairwise comparison
+pairs(lsmeans(mod, specs="border"))
+
+# Are borders different without corners included?
+mod <- lm(C ~ border, data=subset(df, corner=="not_corner"))
+anova(mod)  # YES
+plot(effect("border", mod), main="Border effect (w/o corners) - C assay")
+# Pairwise comparison
+pairs(lsmeans(mod, specs="border"))
+
+mod <- lm(D ~ border, data=subset(df, corner=="not_corner"))
+anova(mod)  # YES
+plot(effect("border", mod), main="Border effect (w/o corners) - D assay")
+# Pairwise comparison
+pairs(lsmeans(mod, specs="border"))
+
+```
+
+
