@@ -1,3 +1,9 @@
+---
+layout: post
+title:  StepOnePlus Uniformity Test
+date:  2017-03-07 13:26:34
+---
+
 # Rationale
 Testing the Baker Lab StepOnePlus machine for any potential variation among wells due to machine error/variability. Machine was calibrated (spatial, background, and dye) on 03/06/2017. To test for any variability, I will run a plate with 96 technical replicates, i.e., the same reaction in each well, that includes amplification of both C and D actin loci.
 
@@ -18,8 +24,8 @@ Testing the Baker Lab StepOnePlus machine for any potential variation among well
 
 ### Raw data files:  
 
-[eds]("20170307_RC_UniformityTest.eds")
-[txt]("20170307_RC_UniformityTest_data.txt")
+[.eds]({{ site.baseurl }}/_source/2017-03-07-steponeplus-uniformity-test/20170307_RC_UniformityTest.eds)  
+[.txt]({{ site.baseurl }}/_source/2017-03-07-steponeplus-uniformity-test/20170307_RC_UniformityTest_data.txt)
 
 
 {% highlight r %}
@@ -35,13 +41,13 @@ library(platetools)
 raw_map(data=df$C, well=df$Well, plate=96)
 {% endhighlight %}
 
-![plot of chunk visualize_plates](/labnotebook/figure/source/2017-03-07-steponeplus-uniformity-test/_site/2017-03-07-steponeplus-uniformity-test/visualize_plates-1.png)
+![plot of chunk visualize_plates](/labnotebook/figure/source/2017-03-07-steponeplus-uniformity-test/2017-03-07-steponeplus-uniformity-test/visualize_plates-1.png)
 
 {% highlight r %}
 raw_map(data=df$D, well=df$Well, plate=96)
 {% endhighlight %}
 
-![plot of chunk visualize_plates](/labnotebook/figure/source/2017-03-07-steponeplus-uniformity-test/_site/2017-03-07-steponeplus-uniformity-test/visualize_plates-2.png)
+![plot of chunk visualize_plates](/labnotebook/figure/source/2017-03-07-steponeplus-uniformity-test/2017-03-07-steponeplus-uniformity-test/visualize_plates-2.png)
 
 ### Run some stats:
 
@@ -112,7 +118,7 @@ anova(mod)  # YES
 plot(effect("corner", mod), main="Corner effect - C assay")
 {% endhighlight %}
 
-![plot of chunk platestats](/labnotebook/figure/source/2017-03-07-steponeplus-uniformity-test/_site/2017-03-07-steponeplus-uniformity-test/platestats-1.png)
+![plot of chunk platestats](/labnotebook/figure/source/2017-03-07-steponeplus-uniformity-test/2017-03-07-steponeplus-uniformity-test/platestats-1.png)
 
 {% highlight r %}
 # Pairwise comparison
@@ -152,7 +158,7 @@ anova(mod)  # YES
 plot(effect("corner", mod), main="Corner effect - D assay")
 {% endhighlight %}
 
-![plot of chunk platestats](/labnotebook/figure/source/2017-03-07-steponeplus-uniformity-test/_site/2017-03-07-steponeplus-uniformity-test/platestats-2.png)
+![plot of chunk platestats](/labnotebook/figure/source/2017-03-07-steponeplus-uniformity-test/2017-03-07-steponeplus-uniformity-test/platestats-2.png)
 
 {% highlight r %}
 # Pairwise comparison
@@ -193,7 +199,7 @@ anova(mod)  # YES
 plot(effect("border", mod), main="Border effect - C assay")
 {% endhighlight %}
 
-![plot of chunk platestats](/labnotebook/figure/source/2017-03-07-steponeplus-uniformity-test/_site/2017-03-07-steponeplus-uniformity-test/platestats-3.png)
+![plot of chunk platestats](/labnotebook/figure/source/2017-03-07-steponeplus-uniformity-test/2017-03-07-steponeplus-uniformity-test/platestats-3.png)
 
 {% highlight r %}
 # Pairwise comparison
@@ -233,7 +239,7 @@ anova(mod)  # YES
 plot(effect("border", mod), main="Border effect - D assay")
 {% endhighlight %}
 
-![plot of chunk platestats](/labnotebook/figure/source/2017-03-07-steponeplus-uniformity-test/_site/2017-03-07-steponeplus-uniformity-test/platestats-4.png)
+![plot of chunk platestats](/labnotebook/figure/source/2017-03-07-steponeplus-uniformity-test/2017-03-07-steponeplus-uniformity-test/platestats-4.png)
 
 {% highlight r %}
 # Pairwise comparison
@@ -274,7 +280,7 @@ anova(mod)  # YES
 plot(effect("border", mod), main="Border effect (w/o corners) - C assay")
 {% endhighlight %}
 
-![plot of chunk platestats](/labnotebook/figure/source/2017-03-07-steponeplus-uniformity-test/_site/2017-03-07-steponeplus-uniformity-test/platestats-5.png)
+![plot of chunk platestats](/labnotebook/figure/source/2017-03-07-steponeplus-uniformity-test/2017-03-07-steponeplus-uniformity-test/platestats-5.png)
 
 {% highlight r %}
 # Pairwise comparison
@@ -314,7 +320,7 @@ anova(mod)  # YES
 plot(effect("border", mod), main="Border effect (w/o corners) - D assay")
 {% endhighlight %}
 
-![plot of chunk platestats](/labnotebook/figure/source/2017-03-07-steponeplus-uniformity-test/_site/2017-03-07-steponeplus-uniformity-test/platestats-6.png)
+![plot of chunk platestats](/labnotebook/figure/source/2017-03-07-steponeplus-uniformity-test/2017-03-07-steponeplus-uniformity-test/platestats-6.png)
 
 {% highlight r %}
 # Pairwise comparison

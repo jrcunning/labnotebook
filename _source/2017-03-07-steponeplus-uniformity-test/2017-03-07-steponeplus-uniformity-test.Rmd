@@ -24,8 +24,8 @@ Testing the Baker Lab StepOnePlus machine for any potential variation among well
 
 ### Raw data files:  
 
-[eds]("20170307_RC_UniformityTest.eds")
-[txt]("20170307_RC_UniformityTest_data.txt")
+[.eds]({{ site.baseurl }}/_source/2017-03-07-steponeplus-uniformity-test/20170307_RC_UniformityTest.eds)  
+[.txt]({{ site.baseurl }}/_source/2017-03-07-steponeplus-uniformity-test/20170307_RC_UniformityTest_data.txt)
 
 ```{r import_data}
 library(reshape2)
