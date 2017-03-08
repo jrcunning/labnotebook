@@ -90,6 +90,8 @@ plot(effect("border", mod), main="Border effect (w/o corners) - D assay")
 # Pairwise comparison
 pairs(lsmeans(mod, specs="border"))
 
+1
+
 ```
 
 

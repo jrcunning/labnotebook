@@ -335,3 +335,15 @@ pairs(lsmeans(mod, specs="border"))
 {% endhighlight %}
 
 
+
+{% highlight r %}
+1
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## [1] 1
+{% endhighlight %}
+
+
