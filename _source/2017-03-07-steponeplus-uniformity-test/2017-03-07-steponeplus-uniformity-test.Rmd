@@ -5,7 +5,7 @@ date:  2017-03-07 13:26:34
 ---
 
 # Rationale
-Testing the Baker Lab StepOnePlus machine for any potential variation among wells due to machine error/variability. Machine was calibrated (spatial, background, and dye) on 03/06/2017. To test for any variability, I will run a plate with 96 technical replicates, i.e., the same reaction in each well, that includes amplification of both C and D actin loci.
+Testing the Baker Lab StepOnePlus machine for any potential variation among wells due to machine error/variability. Machine was calibrated (spatial, background, and dye) on 03/06/2017. To test for any variability, I will run a plate with 96 technical replicates, i.e., the same reaction in each well, that includes amplification of both C and D actin loci (VIC and FAM dyes, respectively.
 
 # Methods
 * Prepare DNA template: (210 µL total)
@@ -14,7 +14,7 @@ Testing the Baker Lab StepOnePlus machine for any potential variation among well
   + 180 µL H2O
 
 * Prepare qPCR MasterMix:
-  + Each reaction: 5 µL GTMM; 0.5 µL each of CFor, CRev, CProbe, DFor, DRev, DProbe; (no water)
+  + Each reaction: 5 µL GTMM; 0.5 µL each of CFor, CRev, CProbe(VIC), DFor, DRev, DProbe(FAM); (no water)
   + MasterMix (n=98): 490 µL GTMM; 49 µL each oligo
 
 * Add 8 µL MasterMix to each well
@@ -45,53 +45,44 @@ raw_map(data=df$D, well=df$Well, plate=96)
 library(effects)
 library(lsmeans)
 
-df$row <- substr(df$Well, 1,1)
-df$col <- substr(df$Well, 2,3)
+df$row <- factor(substr(df$Well, 1,1))
+df$col <- factor(as.numeric(substr(df$Well, 2,3)))
 df$corner <- factor(ifelse(df$Well %in% c("A1", "A12", "H1", "H12"), "corner", "not_corner"))
 df$border <- factor(ifelse(df$row %in% c("A", "H") | df$col %in% c(1, 12), "border", "not_border"))
 str(df)
 
 # Are corners different?
 mod <- lm(C ~ corner, data=df)
-anova(mod)  # YES
-plot(effect("corner", mod), main="Corner effect - C assay")
-# Pairwise comparison
 pairs(lsmeans(mod, specs="corner"))
+plot(effect("corner", mod), main="Corner effect - C assay")
 
 mod <- lm(D ~ corner, data=df)
-anova(mod)  # YES
-plot(effect("corner", mod), main="Corner effect - D assay")
-# Pairwise comparison
 pairs(lsmeans(mod, specs="corner"))
+plot(effect("corner", mod), main="Corner effect - D assay")
 
-# Are borders different?
-mod <- lm(C ~ border, data=df)
-anova(mod)  # YES
-plot(effect("border", mod), main="Border effect - C assay")
-# Pairwise comparison
-pairs(lsmeans(mod, specs="border"))
+# Are columns different? (excluding corners)
+mod <- lm(C ~ col, data=subset(df, corner=="not_corner"))
+anova(mod)
+plot(effect("col", mod), main="Column effect - C assay (excluding corners)")
 
-mod <- lm(D ~ border, data=df)
-anova(mod)  # YES
-plot(effect("border", mod), main="Border effect - D assay")
-# Pairwise comparison
-pairs(lsmeans(mod, specs="border"))
+mod <- lm(D ~ col, data=subset(df, corner=="not_corner"))
+anova(mod)
+plot(effect("col", mod), main="Column effect - D assay (excluding corners)")
 
-# Are borders different without corners included?
-mod <- lm(C ~ border, data=subset(df, corner=="not_corner"))
-anova(mod)  # YES
-plot(effect("border", mod), main="Border effect (w/o corners) - C assay")
-# Pairwise comparison
-pairs(lsmeans(mod, specs="border"))
+# Are rows different? (excluding corners)
+mod <- lm(C ~ row, data=subset(df, corner=="not_corner"))
+cld(lsmeans(mod, specs="row"))
+plot(effect("row", mod), main="Row effect - C assay (excluding corners)")
 
-mod <- lm(D ~ border, data=subset(df, corner=="not_corner"))
-anova(mod)  # YES
-plot(effect("border", mod), main="Border effect (w/o corners) - D assay")
-# Pairwise comparison
-pairs(lsmeans(mod, specs="border"))
-
-1
-
+mod <- lm(D ~ row, data=subset(df, corner=="not_corner"))
+cld(lsmeans(mod, specs="row"))
+plot(effect("row", mod), main="Row effect - D assay (excluding corners)")
 ```
+
+### Conclusions:
+
+Corners amplify ~1.3 cycles later than other wells.
+Other wells in rows A and H (excluding corners!) amplify ~0.3 cycles later than other wells.
+There is no effect of column.
 
 
