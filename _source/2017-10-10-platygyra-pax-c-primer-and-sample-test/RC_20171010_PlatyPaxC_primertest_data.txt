@@ -1,0 +1,105 @@
+* Block Type = 96well
+* Chemistry = SYBR_GREEN
+* Experiment File Name = D:\Applied Biosystems\StepOne Software v2.1\experiments\RC_20171010_PlatyPaxC_primertest.eds
+* Experiment Run End Time = 2017-10-10 14:05:08 PM EDT
+* Instrument Type = steponeplus
+* Passive Reference = ROX
+
+[Results]
+Well	Sample Name	Target Name	Task	Reporter	Quencher	Cт	Cт Mean	Cт SD	Quantity	Quantity Mean	Quantity SD	Automatic Ct Threshold	Ct Threshold	Automatic Baseline	Baseline Start	Baseline End	Tm1	Tm2	Tm3	Comments	HIGHSD	NOAMP	EXPFAIL	MTP
+A1																					N	N	N	N
+A2																					N	N	N	N
+A3	2015a-097	PaxC1	UNKNOWN	SYBR	None	18.7507	23.8319	4.3978				false	0.01	true	3	16	73.0796				Y	N	N	N
+A4	2015a-097	PaxC1	UNKNOWN	SYBR	None	19.177	23.8319	4.3978				false	0.01	true	3	17	73.0796				Y	N	N	N
+A5	2016a-108	PaxC1	UNKNOWN	SYBR	None	20.5499	24.7317	4.0726				false	0.01	true	3	20	73.5224				Y	N	N	N
+A6	2016a-108	PaxC1	UNKNOWN	SYBR	None	19.9203	24.7317	4.0726				false	0.01	true	3	19	73.6714				Y	N	N	N
+A7	2015a-097	PaxC1	UNKNOWN	SYBR	None	17.7855	23.8319	4.3978				false	0.01	true	3	16	75.4591				Y	N	N	N
+A8	2015a-097	PaxC1	UNKNOWN	SYBR	None	17.7262	23.8319	4.3978				false	0.01	true	3	15	75.4591				Y	N	N	N
+A9	2016a-108	PaxC1	UNKNOWN	SYBR	None	19.1083	24.7317	4.0726				false	0.01	true	3	18	76.056				Y	N	N	N
+A10	2016a-108	PaxC1	UNKNOWN	SYBR	None	19.1657	24.7317	4.0726				false	0.01	true	3	18	76.056				Y	N	N	N
+A11																					N	N	N	N
+A12																					N	N	N	N
+B1																					N	N	N	N
+B2																					N	N	N	N
+B3	2015a-097	PaxC1	UNKNOWN	SYBR	None	20.0299	23.8319	4.3978				false	0.01	true	3	20	73.2287				Y	N	N	N
+B4	2015a-097	PaxC1	UNKNOWN	SYBR	None	20.1132	23.8319	4.3978				false	0.01	true	3	19	73.2287				Y	N	N	N
+B5	2016a-108	PaxC1	UNKNOWN	SYBR	None	21.9367	24.7317	4.0726				false	0.01	true	3	22	73.8204				Y	N	N	N
+B6	2016a-108	PaxC1	UNKNOWN	SYBR	None	22.2604	24.7317	4.0726				false	0.01	true	3	22	73.8204				Y	N	N	N
+B7	2015a-097	PaxC1	UNKNOWN	SYBR	None	20.2865	23.8319	4.3978				false	0.01	true	3	19	75.4591				Y	N	N	N
+B8	2015a-097	PaxC1	UNKNOWN	SYBR	None	20.3413	23.8319	4.3978				false	0.01	true	3	19	75.4591				Y	N	N	N
+B9	2016a-108	PaxC1	UNKNOWN	SYBR	None	22.5425	24.7317	4.0726				false	0.01	true	3	22	75.907				Y	N	N	N
+B10	2016a-108	PaxC1	UNKNOWN	SYBR	None	22.2435	24.7317	4.0726				false	0.01	true	3	21	75.907				Y	N	N	N
+B11																					N	N	N	N
+B12																					N	N	N	N
+C1																					N	N	N	N
+C2																					N	N	N	N
+C3	2015a-097	PaxC1	UNKNOWN	SYBR	None	23.5665	23.8319	4.3978				false	0.01	true	3	22	73.0796				Y	N	N	N
+C4	2015a-097	PaxC1	UNKNOWN	SYBR	None	23.3676	23.8319	4.3978				false	0.01	true	3	23	73.2287				Y	N	N	N
+C5	2016a-108	PaxC1	UNKNOWN	SYBR	None	25.4703	24.7317	4.0726				false	0.01	true	3	25	73.6714				Y	N	N	N
+C6	2016a-108	PaxC1	UNKNOWN	SYBR	None	24.935	24.7317	4.0726				false	0.01	true	3	25	73.6714				Y	N	N	N
+C7	2015a-097	PaxC1	UNKNOWN	SYBR	None	23.669	23.8319	4.3978				false	0.01	true	3	22	75.3101				Y	N	N	N
+C8	2015a-097	PaxC1	UNKNOWN	SYBR	None	23.6336	23.8319	4.3978				false	0.01	true	3	22	75.161				Y	N	N	N
+C9	2016a-108	PaxC1	UNKNOWN	SYBR	None	25.139	24.7317	4.0726				false	0.01	true	3	23	75.758				Y	N	N	N
+C10	2016a-108	PaxC1	UNKNOWN	SYBR	None	24.757	24.7317	4.0726				false	0.01	true	3	24	75.758				Y	N	N	N
+C11																					N	N	N	N
+C12																					N	N	N	N
+D1																					N	N	N	N
+D2																					N	N	N	N
+D3	2015a-097	PaxC1	UNKNOWN	SYBR	None	27.7898	23.8319	4.3978				false	0.01	true	3	27	72.9306				Y	N	N	N
+D4	2015a-097	PaxC1	UNKNOWN	SYBR	None	27.6618	23.8319	4.3978				false	0.01	true	3	26	72.9306				Y	N	N	N
+D5	2016a-108	PaxC1	UNKNOWN	SYBR	None	28.4985	24.7317	4.0726				false	0.01	true	3	28	73.5224				Y	N	N	N
+D6	2016a-108	PaxC1	UNKNOWN	SYBR	None	27.6851	24.7317	4.0726				false	0.01	true	3	27	73.3734				Y	N	N	N
+D7	2015a-097	PaxC1	UNKNOWN	SYBR	None	26.4042	23.8319	4.3978				false	0.01	true	3	25	75.012				Y	N	N	N
+D8	2015a-097	PaxC1	UNKNOWN	SYBR	None	27.4206	23.8319	4.3978				false	0.01	true	3	26	75.012				Y	N	N	N
+D9	2016a-108	PaxC1	UNKNOWN	SYBR	None	29.189	24.7317	4.0726				false	0.01	true	3	28	75.4599				Y	N	N	N
+D10	2016a-108	PaxC1	UNKNOWN	SYBR	None	28.5982	24.7317	4.0726				false	0.01	true	3	28	75.4599				Y	N	N	N
+D11																					N	N	N	N
+D12																					N	N	N	N
+E1																					N	N	N	N
+E2																					N	N	N	N
+E3	2015a-097	PaxC1	UNKNOWN	SYBR	None	31.2408	23.8319	4.3978				false	0.01	true	3	31	72.9306				Y	N	N	N
+E4	2015a-097	PaxC1	UNKNOWN	SYBR	None	29.6889	23.8319	4.3978				false	0.01	true	3	29	72.7816				Y	N	N	N
+E5	2016a-108	PaxC1	UNKNOWN	SYBR	None	32.4173	24.7317	4.0726				false	0.01	true	3	31	70.8403				Y	N	N	N
+E6	2016a-108	PaxC1	UNKNOWN	SYBR	None	30.7538	24.7317	4.0726				false	0.01	true	3	31	73.3734				Y	N	N	N
+E7	2015a-097	PaxC1	UNKNOWN	SYBR	None	29.4748	23.8319	4.3978				false	0.01	true	3	29	74.8629				Y	N	N	N
+E8	2015a-097	PaxC1	UNKNOWN	SYBR	None	28.5101	23.8319	4.3978				false	0.01	true	3	28	74.8629				Y	N	N	N
+E9	2016a-108	PaxC1	UNKNOWN	SYBR	None	Undetermined	24.7317	4.0726				false	0.01	true	3	39	87.8297	66.5178	68.9024		N	Y	Y	Y
+E10	2016a-108	PaxC1	UNKNOWN	SYBR	None	Undetermined	24.7317	4.0726				false	0.01	true	3	39	66.9649	71.2869	83.6568		N	Y	Y	Y
+E11																					N	N	N	N
+E12																					N	N	N	N
+F1																					N	N	N	N
+F2																					N	N	N	N
+F3	NTC	PaxC1	NTC	SYBR	None	37.2907	37.2907					false	0.01	true	3	36	71.2913	65.6281	87.6846		N	N	N	Y
+F4	NTC	PaxC1	NTC	SYBR	None	Undetermined	37.2907					false	0.01	true	3	39	93.3478	64.7339	83.0647		N	N	N	Y
+F5																					N	N	N	N
+F6																					N	N	N	N
+F7	NTC	PaxC1	NTC	SYBR	None	Undetermined	37.2907					false	0.01	true	3	39	67.2613				N	N	N	N
+F8	NTC	PaxC1	NTC	SYBR	None	Undetermined	37.2907					false	0.01	true	3	39	66.665	87.6814			N	N	N	Y
+F9																					N	N	N	N
+F10																					N	N	N	N
+F11																					N	N	N	N
+F12																					N	N	N	N
+G1																					N	N	N	N
+G2																					N	N	N	N
+G3																					N	N	N	N
+G4																					N	N	N	N
+G5																					N	N	N	N
+G6																					N	N	N	N
+G7																					N	N	N	N
+G8																					N	N	N	N
+G9																					N	N	N	N
+G10																					N	N	N	N
+G11																					N	N	N	N
+G12																					N	N	N	N
+H1																					N	N	N	N
+H2																					N	N	N	N
+H3																					N	N	N	N
+H4																					N	N	N	N
+H5																					N	N	N	N
+H6																					N	N	N	N
+H7																					N	N	N	N
+H8																					N	N	N	N
+H9																					N	N	N	N
+H10																					N	N	N	N
+H11																					N	N	N	N
+H12																					N	N	N	N
