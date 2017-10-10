@@ -5,9 +5,9 @@ date:  2017-10-10 18:04:11
 ---
 
 # Rationale
-1) Test amplification success and efficiency of new primers targeting *Platygyra* Pax-C intron
-2) Test for presence of inhibitors in KI Platygyra DNA samples
-3) Test whether PowerUp SYBR MasterMix is more robust to inhibitors.
+1. Test amplification success and efficiency of new primers targeting *Platygyra* Pax-C intron.  
+2. Test for presence of inhibitors in KI Platygyra DNA samples.  
+3. Test whether PowerUp SYBR MasterMix is more robust to inhibitors.  
 
 # Methods
 * Samples used: 
@@ -26,12 +26,13 @@ date:  2017-10-10 18:04:11
 
 ### Raw data files:  
 
-[.eds]({{ site.baseurl }}/_source/2017-10-10-platygyra-pax-c-primer-and-sample-test/RC_20171010_PlatyPaxC_primertest.eds)  
-[.txt]({{ site.baseurl }}/_source/2017-10-10-platygyra-pax-c-primer-and-sample-test/RC_20171010_PlatyPaxC_primertest_data.txt)
+[.eds]({{ site.baseurl }}/assets/2017-10-10-platygyra-pax-c-primer-and-sample-test/RC_20171010_PlatyPaxC_primertest.eds)  
+[.txt]({{ site.baseurl }}/assets/2017-10-10-platygyra-pax-c-primer-and-sample-test/RC_20171010_PlatyPaxC_primertest_data.txt)
 
 ```{r import_data}
 library(reshape2)
 library(stringr)
+
 df <- read.delim("RC_20171010_PlatyPaxC_primertest_data.txt", skip=8)[, 1:7]
 df <- df[df$Target.Name=="PaxC1", ]
 df$CT <- as.numeric(as.character(df$Cт))

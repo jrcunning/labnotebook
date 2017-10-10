@@ -1,7 +1,13 @@
+---
+layout: post
+title:  Platygyra Pax-C primer and sample test
+date:  2017-10-10 18:04:11
+---
+
 # Rationale
-1) Test amplification success and efficiency of new primers targeting *Platygyra* Pax-C intron
-2) Test for presence of inhibitors in KI Platygyra DNA samples
-3) Test whether PowerUp SYBR MasterMix is more robust to inhibitors
+1. Test amplification success and efficiency of new primers targeting *Platygyra* Pax-C intron.  
+2. Test for presence of inhibitors in KI Platygyra DNA samples.  
+3. Test whether PowerUp SYBR MasterMix is more robust to inhibitors.  
 
 # Methods
 * Samples used: 
@@ -20,44 +26,139 @@
 
 ### Raw data files:  
 
-[.eds](/_source/2017-10-10-platygyra-pax-c-primer-and-sample-test/RC_20171010_PlatyPaxC_primertest.eds)  
-[.txt](/_source/2017-10-10-platygyra-pax-c-primer-and-sample-test/RC_20171010_PlatyPaxC_primertest_data.txt)
+[.eds]({{ site.baseurl }}/assets/2017-10-10-platygyra-pax-c-primer-and-sample-test/RC_20171010_PlatyPaxC_primertest.eds)  
+[.txt]({{ site.baseurl }}/assets/2017-10-10-platygyra-pax-c-primer-and-sample-test/RC_20171010_PlatyPaxC_primertest_data.txt)
 
 
 {% highlight r %}
 library(reshape2)
+library(stringr)
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Warning: package 'stringr' was built under R version 3.3.2
+{% endhighlight %}
+
+
+
+{% highlight r %}
 df <- read.delim("RC_20171010_PlatyPaxC_primertest_data.txt", skip=8)[, 1:7]
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Warning in file(file, "rt"): cannot open file
+## 'RC_20171010_PlatyPaxC_primertest_data.txt': No such file or directory
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Error in file(file, "rt"): cannot open the connection
+{% endhighlight %}
+
+
+
+{% highlight r %}
 df <- df[df$Target.Name=="PaxC1", ]
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Error in df$Target.Name: object of type 'closure' is not subsettable
+{% endhighlight %}
+
+
+
+{% highlight r %}
 df$CT <- as.numeric(as.character(df$Cт))
 {% endhighlight %}
 
 
 
 {% highlight text %}
-## Warning: NAs introduced by coercion
+## Error in df$Cт: object of type 'closure' is not subsettable
 {% endhighlight %}
 
 
 
 {% highlight r %}
 df$col <- substr(df$Well, 2, 3)
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Error in df$Well: object of type 'closure' is not subsettable
+{% endhighlight %}
+
+
+
+{% highlight r %}
 df$row <- substr(df$Well, 1, 1)
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Error in df$Well: object of type 'closure' is not subsettable
+{% endhighlight %}
+
+
+
+{% highlight r %}
 df$MM <- factor(ifelse(df$col %in% 3:6, "SYBR Green", "PowerUp SYBR"))
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Error in df$col: object of type 'closure' is not subsettable
+{% endhighlight %}
+
+
+
+{% highlight r %}
 df$conc <- df$row
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Error in df$row: object of type 'closure' is not subsettable
+{% endhighlight %}
+
+
+
+{% highlight r %}
 df$conc <- as.numeric(str_replace_all(df$conc, c("A" = "0.2", "B" = "0.02", "C" = "0.002", "D" = "0.0002", "E" = "0.00002")))
 {% endhighlight %}
 
 
 
 {% highlight text %}
-## Error in eval(expr, envir, enclos): could not find function "str_replace_all"
+## Error in df$conc: object of type 'closure' is not subsettable
 {% endhighlight %}
 
 
 
 {% highlight r %}
 df <- droplevels(df)
+{% endhighlight %}
 
+
+
+{% highlight text %}
+## Error in UseMethod("droplevels"): no applicable method for 'droplevels' applied to an object of class "function"
+{% endhighlight %}
+
+
+
+{% highlight r %}
 plot(df$CT ~ log10(df$conc), ylim=c(17,33), xaxt="n",
      pch=c(21,24)[df$Sample.Name],
      col=c("blue", "red")[df$MM],
@@ -67,7 +168,7 @@ plot(df$CT ~ log10(df$conc), ylim=c(17,33), xaxt="n",
 
 
 {% highlight text %}
-## Error in log10(df$conc): non-numeric argument to mathematical function
+## Error in df$Sample.Name: object of type 'closure' is not subsettable
 {% endhighlight %}
 
 
@@ -93,7 +194,7 @@ mod <- lm(CT ~ log10(conc), data=df)
 
 
 {% highlight text %}
-## Error in log10(conc): non-numeric argument to mathematical function
+## Error in terms.formula(formula, data = data): 'data' argument is of the wrong type
 {% endhighlight %}
 
 
@@ -142,7 +243,7 @@ mod <- lm(CT ~ log10(conc), data=subset(df, conc!=0.2 & conc!=0.00002))
 
 
 {% highlight text %}
-## Error in log10(conc): non-numeric argument to mathematical function
+## Error in subset.default(df, conc != 0.2 & conc != 2e-05): object 'conc' not found
 {% endhighlight %}
 
 
