@@ -45,217 +45,106 @@ library(stringr)
 
 {% highlight r %}
 df <- read.delim("RC_20171010_PlatyPaxC_primertest_data.txt", skip=8)[, 1:7]
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Warning in file(file, "rt"): cannot open file
-## 'RC_20171010_PlatyPaxC_primertest_data.txt': No such file or directory
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Error in file(file, "rt"): cannot open the connection
-{% endhighlight %}
-
-
-
-{% highlight r %}
 df <- df[df$Target.Name=="PaxC1", ]
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Error in df$Target.Name: object of type 'closure' is not subsettable
-{% endhighlight %}
-
-
-
-{% highlight r %}
 df$CT <- as.numeric(as.character(df$Cт))
 {% endhighlight %}
 
 
 
 {% highlight text %}
-## Error in df$Cт: object of type 'closure' is not subsettable
+## Warning: NAs introduced by coercion
 {% endhighlight %}
 
 
 
 {% highlight r %}
 df$col <- substr(df$Well, 2, 3)
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Error in df$Well: object of type 'closure' is not subsettable
-{% endhighlight %}
-
-
-
-{% highlight r %}
 df$row <- substr(df$Well, 1, 1)
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Error in df$Well: object of type 'closure' is not subsettable
-{% endhighlight %}
-
-
-
-{% highlight r %}
 df$MM <- factor(ifelse(df$col %in% 3:6, "SYBR Green", "PowerUp SYBR"))
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Error in df$col: object of type 'closure' is not subsettable
-{% endhighlight %}
-
-
-
-{% highlight r %}
 df$conc <- df$row
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Error in df$row: object of type 'closure' is not subsettable
-{% endhighlight %}
-
-
-
-{% highlight r %}
 df$conc <- as.numeric(str_replace_all(df$conc, c("A" = "0.2", "B" = "0.02", "C" = "0.002", "D" = "0.0002", "E" = "0.00002")))
 {% endhighlight %}
 
 
 
 {% highlight text %}
-## Error in df$conc: object of type 'closure' is not subsettable
+## Warning: NAs introduced by coercion
 {% endhighlight %}
 
 
 
 {% highlight r %}
 df <- droplevels(df)
-{% endhighlight %}
 
-
-
-{% highlight text %}
-## Error in UseMethod("droplevels"): no applicable method for 'droplevels' applied to an object of class "function"
-{% endhighlight %}
-
-
-
-{% highlight r %}
 plot(df$CT ~ log10(df$conc), ylim=c(17,33), xaxt="n",
      pch=c(21,24)[df$Sample.Name],
      col=c("blue", "red")[df$MM],
      xlab="DNA dilution series", ylab="CT value")
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Error in df$Sample.Name: object of type 'closure' is not subsettable
-{% endhighlight %}
-
-
-
-{% highlight r %}
 axis(side=1, at=log10(c(2e-1, 2e-2, 2e-3, 2e-4, 2e-5)),
      labels=c("1:5", "1:50", "1:500", "1:5000", "1:50000"))
-{% endhighlight %}
 
-
-
-{% highlight text %}
-## Error in axis(side = 1, at = log10(c(0.2, 0.02, 0.002, 2e-04, 2e-05)), : plot.new has not been called yet
-{% endhighlight %}
-
-
-
-{% highlight r %}
 # Fit model using all data
 mod <- lm(CT ~ log10(conc), data=df)
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Error in terms.formula(formula, data = data): 'data' argument is of the wrong type
-{% endhighlight %}
-
-
-
-{% highlight r %}
 summary(mod)
 {% endhighlight %}
 
 
 
 {% highlight text %}
-## Error in summary(mod): object 'mod' not found
+## 
+## Call:
+## lm(formula = CT ~ log10(conc), data = df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -1.9342 -0.9567  0.2368  0.6272  1.9730 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  16.6367     0.3613   46.05   <2e-16 ***
+## log10(conc)  -2.9384     0.1231  -23.87   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.042 on 36 degrees of freedom
+##   (6 observations deleted due to missingness)
+## Multiple R-squared:  0.9406,	Adjusted R-squared:  0.9389 
+## F-statistic: 569.7 on 1 and 36 DF,  p-value: < 2.2e-16
 {% endhighlight %}
 
 
 
 {% highlight r %}
 abline(mod, lty=2)
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Error in abline(mod, lty = 2): object 'mod' not found
-{% endhighlight %}
-
-
-
-{% highlight r %}
 legend("bottomleft", lty=2, bty="n", legend=paste0("slope=", round(coef(mod)[[2]], 3)))
-{% endhighlight %}
 
-
-
-{% highlight text %}
-## Error in coef(mod): object 'mod' not found
-{% endhighlight %}
-
-
-
-{% highlight r %}
 # Fit model without highest and lowest concentrations
 mod <- lm(CT ~ log10(conc), data=subset(df, conc!=0.2 & conc!=0.00002))
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Error in subset.default(df, conc != 0.2 & conc != 2e-05): object 'conc' not found
-{% endhighlight %}
-
-
-
-{% highlight r %}
 summary(mod)
 {% endhighlight %}
 
 
 
 {% highlight text %}
-## Error in summary(mod): object 'mod' not found
+## 
+## Call:
+## lm(formula = CT ~ log10(conc), data = subset(df, conc != 0.2 & 
+##     conc != 2e-05))
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.41992 -0.84814 -0.08668  0.78036  1.40502 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  15.4573     0.6555   23.58  < 2e-16 ***
+## log10(conc)  -3.3433     0.2325  -14.38 1.14e-12 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.9298 on 22 degrees of freedom
+## Multiple R-squared:  0.9039,	Adjusted R-squared:  0.8995 
+## F-statistic: 206.9 on 1 and 22 DF,  p-value: 1.141e-12
 {% endhighlight %}
 
 
@@ -263,25 +152,10 @@ summary(mod)
 {% highlight r %}
 clip(-4,-1.4, 0, 40)
 abline(mod, xlim=c(-3.8, -1.8), lwd=2)
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Error in abline(mod, xlim = c(-3.8, -1.8), lwd = 2): object 'mod' not found
-{% endhighlight %}
-
-
-
-{% highlight r %}
 legend("top", lty=1, lwd=2, bty="n", legend=paste0("slope=", round(coef(mod)[[2]], 3)))
 {% endhighlight %}
 
-
-
-{% highlight text %}
-## Error in coef(mod): object 'mod' not found
-{% endhighlight %}
+![plot of chunk import_data](/labnotebook/figure/source/2017-10-10-platygyra-pax-c-primer-and-sample-test/2017-10-10-platygyra-pax-c-primer-and-sample-test/import_data-1.png)
 
 Based on these results, we can conclude:
 1) Pax-C primers amplify target successfully with ~100% efficiency
