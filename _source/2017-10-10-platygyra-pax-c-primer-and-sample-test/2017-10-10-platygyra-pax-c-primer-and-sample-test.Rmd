@@ -7,7 +7,7 @@ date:  2017-10-10 18:04:11
 # Rationale
 1) Test amplification success and efficiency of new primers targeting *Platygyra* Pax-C intron
 2) Test for presence of inhibitors in KI Platygyra DNA samples
-3) Test whether PowerUp SYBR MasterMix is more robust to inhibitors
+3) Test whether PowerUp SYBR MasterMix is more robust to inhibitors.
 
 # Methods
 * Samples used: 
