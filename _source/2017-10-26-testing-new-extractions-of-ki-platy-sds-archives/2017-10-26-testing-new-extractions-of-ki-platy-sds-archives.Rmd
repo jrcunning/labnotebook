@@ -1,0 +1,34 @@
+---
+layout: post
+title:  Testing new extractions of KI Platy SDS archives
+date:  2017-10-26 21:07:01
+---
+
+# Import data
+```{r}
+library(reshape2)
+df <- read.delim("RC_20171026_KI_Platy_newextract_test_data.txt", skip=8)[, 1:7]
+df <- df[!df$Well %in% c("A1", "A12", "H1", "H12"), ]
+df <- df[!df$Sample.Name %in% c("+", "NEC1", "NTC"), ]
+df$CT <- as.numeric(as.character(df$Cт))
+df <- droplevels(df)
+
+res <- dcast(df, Sample.Name ~ Target.Name, value.var = "CT", fun.aggregate=mean, na.rm=T)
+res$C.H <- 2^(res$PaxC - res$C)
+res$D.H <- 2^(res$PaxC - res$D)
+res$S.H <- apply(res[, c("C.H", "D.H")], 1, sum, na.rm=T)
+res$Date <- substr(res$Sample.Name, 1, 4)
+res
+```
+
+# Plot S/H against PaxC CT values
+```{r}
+with(res, plot(S.H ~ PaxC, log="y"))
+abline(h=0.3, lty=2)
+```
+
+Two groups of samples are visible: those where the host locus (PaxC) amplified in less than 20 cycles, and those in which it amplified after 30 cycles. For those that amplified earlier, S/H ratios are reasonable, whereas for those that amplified later, S/H ratios are all unrealistically high (above 0.3, which is biologically improbable). 
+
+Next steps: for those samples that amplified late, test dilutions and different MasterMixes.
+
+```
