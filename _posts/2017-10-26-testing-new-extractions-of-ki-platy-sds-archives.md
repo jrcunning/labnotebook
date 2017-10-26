@@ -1,3 +1,9 @@
+---
+layout: post
+title:  Testing new extractions of KI Platy SDS archives
+date:  2017-10-26 21:07:01
+---
+
 # Import data
 
 {% highlight r %}
@@ -95,7 +101,7 @@ with(res, plot(S.H ~ PaxC, log="y"))
 abline(h=0.3, lty=2)
 {% endhighlight %}
 
-![plot of chunk unnamed-chunk-2](/labnotebook/figure/source/2017-10-26-testing-new-extractions-of-ki-platy-sds-archives/_site/2017-10-26-testing-new-extractions-of-ki-platy-sds-archives/unnamed-chunk-2-1.png)
+![plot of chunk plot_SH](/labnotebook/figure/source/2017-10-26-testing-new-extractions-of-ki-platy-sds-archives/2017-10-26-testing-new-extractions-of-ki-platy-sds-archives/plot_SH-1.png)
 
 Two groups of samples are visible: those where the host locus (PaxC) amplified in less than 20 cycles, and those in which it amplified after 30 cycles. For those that amplified earlier, S/H ratios are reasonable, whereas for those that amplified later, S/H ratios are all unrealistically high (above 0.3, which is biologically improbable). 
 

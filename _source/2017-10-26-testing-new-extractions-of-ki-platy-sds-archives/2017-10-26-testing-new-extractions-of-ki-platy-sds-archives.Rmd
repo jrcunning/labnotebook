@@ -22,7 +22,7 @@ res
 ```
 
 # Plot S/H against PaxC CT values
-```{r}
+```{r plot_SH}
 with(res, plot(S.H ~ PaxC, log="y"))
 abline(h=0.3, lty=2)
 ```
