@@ -6,12 +6,22 @@ date:  2017-10-26 21:07:01
 
 # Import data
 ```{r}
+options(stringsAsFactors = FALSE)
 library(reshape2)
 df <- read.delim("RC_20171026_KI_Platy_newextract_test_data.txt", skip=8)[, 1:7]
 df <- df[!df$Well %in% c("A1", "A12", "H1", "H12"), ]
 df <- df[!df$Sample.Name %in% c("+", "NEC1", "NTC"), ]
 df$CT <- as.numeric(as.character(df$Cт))
 df <- droplevels(df)
+df <- cbind(df,
+            reshape2::colsplit(df$Sample.Name, pattern = "-", 
+                               names = c("Date", "Sample", "Dilution")))
+df <- cbind(df,
+            reshape2::colsplit(df$Target.Name, pattern="-",
+                               names= c("Target", "MM")))
+df$Treatment <- "Control"
+df$CT[is.na(df$CT)] <- 40
+df0 <- df
 
 res <- dcast(df, Sample.Name ~ Target.Name, value.var = "CT", fun.aggregate=mean, na.rm=T)
 res$C.H <- 2^(res$PaxC - res$C)
@@ -31,4 +41,44 @@ Two groups of samples are visible: those where the host locus (PaxC) amplified i
 
 Next steps: for those samples that amplified late, test dilutions and different MasterMixes.
 
+***
+# Dilutions and alternative MasterMixes
+
+Eight samples that amplified poorly on the previous plate were run again at dilutions of 1:10 and 1:100 with the standard Master Mix, and also at full strength with the PowerUp SYBR MasterMix (PaxC) or the TaqMan Environmental Master Mix (C and D), which are meant to be more robust to PCR inhibitors. Here I'm comparing the data from both plates to see which treatment gives the best amplifications (i.e. lowest CT values). Treatments are "Control" (undiluted, standard Master Mix), "1:10" (diluted 1:10, standard Master Mix), "1:100" (diluted 1:100, standard Master Mix), and "MM" (undiluted, Environmental Master Mix).
+
+```{r}
+library(lsmeans)
+df <- read.delim("RC_20171027_KI_CTAB_dil_mm_test_data.txt", skip=8)[, 1:7]
+df <- df[!df$Well %in% c("A1", "A12", "H1", "H12"), ]
+df <- df[!df$Sample.Name %in% c("+", "NEC1", "NTC"), ]
+df$CT <- as.numeric(as.character(df$Cт))
+df <- droplevels(df)
+df <- cbind(df,
+            reshape2::colsplit(df$Sample.Name, pattern = "-", 
+                               names = c("Date", "Sample", "Dilution")))
+df <- cbind(df,
+            reshape2::colsplit(df$Target.Name, pattern="-",
+                               names= c("Target", "MM")))
+df$Treatment <- paste0(df$Dilution, df$MM)
+df$Treatment <- gsub("EN", "MM", df$Treatment)
+df$Treatment <- gsub("PU", "MM", df$Treatment)
+df$CT[is.na(df$CT)] <- 40
+
+dff <- rbind(df0, df, all=T)
+dff <- subset(dff, dff$Sample %in% df$Sample)
+
+
+mod <- with(dff, lm(CT ~ Treatment * Target))
+plot(lsmeans(mod, specs=c("Treatment", "Target")), horizontal=FALSE)
+
+
+
 ```
+
+Results:
+
+TaqMan Environmental MasterMix leads to the lower CT values for both clade C and D amplification, but PaxC amplification is best in control samples. This suggests the PowerUp SYBR MasterMix provides no benefit, but the TaqMan Environmental MasterMix does. It is possible that 1:10 dilution AND use of TaqMan Environmental MasterMix provides even better amplification (I can test this next). Also, we could develop a TaqMan probe for the PaxC assay and then use this with the TaqMan Environmental MasterMix to potentially improve PaxC amplification.
+
+I also had a look at the SDS archives of the samples that amplified well (on the first plate) and the samples that amplified poorly. In general, the samples that performed poorly had much more skeleton/debris/mucus in the SDS archive, while the samples that performed well had very little apparent skeleton and biomass in the sample. This suggests that for the larger samples (i.e., more stuff in the tube), either DNA is not preserved as well, or more PCR inhibitors are co-precipitating with the DNA. We can try to modify the extraction protocol (more proteinase K?) to see if this improves the yield...
+
+![SDS archives]({{ site.baseurl }}/assets/IMG_5250.JPG)
