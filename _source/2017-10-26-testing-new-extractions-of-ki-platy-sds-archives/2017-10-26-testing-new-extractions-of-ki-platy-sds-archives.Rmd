@@ -28,7 +28,6 @@ res$C.H <- 2^(res$PaxC - res$C)
 res$D.H <- 2^(res$PaxC - res$D)
 res$S.H <- apply(res[, c("C.H", "D.H")], 1, sum, na.rm=T)
 res$Date <- substr(res$Sample.Name, 1, 4)
-res
 ```
 
 # Plot S/H against PaxC CT values
@@ -46,7 +45,7 @@ Next steps: for those samples that amplified late, test dilutions and different 
 
 Eight samples that amplified poorly on the previous plate were run again at dilutions of 1:10 and 1:100 with the standard Master Mix, and also at full strength with the PowerUp SYBR MasterMix (PaxC) or the TaqMan Environmental Master Mix (C and D), which are meant to be more robust to PCR inhibitors. Here I'm comparing the data from both plates to see which treatment gives the best amplifications (i.e. lowest CT values). Treatments are "Control" (undiluted, standard Master Mix), "1:10" (diluted 1:10, standard Master Mix), "1:100" (diluted 1:100, standard Master Mix), and "MM" (undiluted, Environmental Master Mix).
 
-```{r}
+```{r, fig.width=10}
 library(lsmeans)
 df <- read.delim("RC_20171027_KI_CTAB_dil_mm_test_data.txt", skip=8)[, 1:7]
 df <- df[!df$Well %in% c("A1", "A12", "H1", "H12"), ]
