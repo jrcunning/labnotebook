@@ -34,6 +34,7 @@ res$Date <- substr(res$Sample.Name, 1, 4)
 ```{r plot_SH}
 with(res, plot(S.H ~ PaxC, log="y"))
 abline(h=0.3, lty=2)
+res
 ```
 
 Two groups of samples are visible: those where the host locus (PaxC) amplified in less than 20 cycles, and those in which it amplified after 30 cycles. For those that amplified earlier, S/H ratios are reasonable, whereas for those that amplified later, S/H ratios are all unrealistically high (above 0.3, which is biologically improbable). 
