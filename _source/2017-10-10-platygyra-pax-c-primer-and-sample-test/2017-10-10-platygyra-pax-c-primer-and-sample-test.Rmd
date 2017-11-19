@@ -63,7 +63,12 @@ clip(-4,-1.4, 0, 40)
 abline(mod, xlim=c(-3.8, -1.8), lwd=2)
 legend("top", lty=1, lwd=2, bty="n", legend=paste0("slope=", round(coef(mod)[[2]], 3)))
 
-
+ps <- subset(df, MM=="SYBR Green")
+ps2 <- subset(ps, conc!=2e-01)
+mod <- lm(CT ~ log10(conc), data=ps2)
+summary(mod)
+xyplot(CT ~ log10(conc), type=c("r", "p"), data=ps2)
+((10^(-1/coef(mod)[2]))-1)*100
 ```
 
 Based on these results, we can conclude:

@@ -157,6 +157,61 @@ legend("top", lty=1, lwd=2, bty="n", legend=paste0("slope=", round(coef(mod)[[2]
 
 ![plot of chunk import_data](/labnotebook/figure/source/2017-10-10-platygyra-pax-c-primer-and-sample-test/2017-10-10-platygyra-pax-c-primer-and-sample-test/import_data-1.png)
 
+{% highlight r %}
+ps <- subset(df, MM=="SYBR Green")
+ps2 <- subset(ps, conc!=2e-01)
+mod <- lm(CT ~ log10(conc), data=ps2)
+summary(mod)
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## 
+## Call:
+## lm(formula = CT ~ log10(conc), data = ps2)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.40873 -0.88072 -0.02075  0.76958  1.31966 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  15.4057     0.6956   22.15 2.69e-12 ***
+## log10(conc)  -3.3394     0.2053  -16.27 1.73e-10 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.9179 on 14 degrees of freedom
+## Multiple R-squared:  0.9498,	Adjusted R-squared:  0.9462 
+## F-statistic: 264.7 on 1 and 14 DF,  p-value: 1.729e-10
+{% endhighlight %}
+
+
+
+{% highlight r %}
+xyplot(CT ~ log10(conc), type=c("r", "p"), data=ps2)
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## Error in eval(expr, envir, enclos): could not find function "xyplot"
+{% endhighlight %}
+
+
+
+{% highlight r %}
+((10^(-1/coef(mod)[2]))-1)*100
+{% endhighlight %}
+
+
+
+{% highlight text %}
+## log10(conc) 
+##    99.27435
+{% endhighlight %}
+
 Based on these results, we can conclude:
 1) Pax-C primers amplify target successfully with ~100% efficiency
 2) KI Platygyra samples have some PCR inhibitors, but effect disappears after 1:50 dilution
