@@ -1,0 +1,90 @@
+---
+layout: post
+title:  QuantStudio3 Uniformity Test
+date:  2018-01-24 14:50:44
+---
+
+
+# Rationale
+Testing the new QuantStudio3 machine for any potential variation among wells using a plate with 96 technical replicates, i.e., the same reaction in each well, that includes amplification of both C and D actin loci (VIC and FAM dyes, respectively).
+
+# Methods
+* Prepare DNA template: (200 µL total)
+  + 100 µL clade C actin @ 64,000 copies/µL
+  + 100 µL clade D actin @ 64,000 copies/µL
+
+* Prepare qPCR MasterMix:
+  + Each reaction: 5 µL GTMM; 0.5 µL each of CFor, CRev, CProbe(VIC), DFor, DRev, DProbe(FAM); (no water)
+  + MasterMix (n=98): 490 µL GTMM; 49 µL each oligo
+
+* Add 8 µL MasterMix to each well
+* Add 2 µL mixed C+D DNA template to each well
+
+# Results
+
+### Raw data files:  
+
+[.txt]({{ site.baseurl }}/_source/2018-01-24-quantstudio3-uniformity-test/2018-01-23_Uniformity-Test.txt)
+
+```{r import_data}
+library(reshape2)
+df <- read.delim("2018-01-23_Uniformity-Test.txt", skip=7923, sep="\t")
+df <- dcast(df, formula=Well.Position~Target.Name, value.var="CT")
+```
+
+### Visualize plates: 
+```{r visualize_plates, fig.height=4, fig.width=6}
+library(platetools)
+raw_map(data=df$C, well=df$Well, plate=96)
+raw_map(data=df$D, well=df$Well, plate=96)
+```
+
+### Run some stats:
+```{r platestats}
+library(effects)
+library(lsmeans)
+
+df$row <- factor(substr(df$Well, 1,1))
+df$col <- factor(as.numeric(substr(df$Well, 2,3)))
+df$corner <- factor(ifelse(df$Well %in% c("A1", "A12", "H1", "H12"), "corner", "not_corner"))
+df$border <- factor(ifelse(df$row %in% c("A", "H") | df$col %in% c(1, 12), "border", "not_border"))
+str(df)
+
+# Are corners different?
+mod <- lm(C ~ corner, data=df)
+pairs(lsmeans(mod, specs="corner"))
+plot(effect("corner", mod), main="Corner effect - C assay")
+
+mod <- lm(D ~ corner, data=df)
+pairs(lsmeans(mod, specs="corner"))
+plot(effect("corner", mod), main="Corner effect - D assay")
+
+# Are columns different? (excluding corners)
+mod <- lm(C ~ col, data=subset(df, corner=="not_corner"))
+anova(mod)
+plot(effect("col", mod), main="Column effect - C assay (excluding corners)")
+
+mod <- lm(D ~ col, data=subset(df, corner=="not_corner"))
+anova(mod)
+plot(effect("col", mod), main="Column effect - D assay (excluding corners)")
+
+# Are rows different? (excluding corners)
+mod <- lm(C ~ row, data=subset(df, corner=="not_corner"))
+anova(mod)
+cld(lsmeans(mod, specs="row"))
+plot(effect("row", mod), main="Row effect - C assay (excluding corners)")
+
+mod <- lm(D ~ row, data=subset(df, corner=="not_corner"))
+anova(mod)
+cld(lsmeans(mod, specs="row"))
+plot(effect("row", mod), main="Row effect - D assay (excluding corners)")
+```
+
+### Conclusions:
+
+Detection in the corners is 0.45 cycles later for C (VIC) and 0.2 cycles later for D (FAM). 
+
+There is a significant column effect for D (FAM) detection.
+
+There is a significant row effect for C (VIC) detection.
+
